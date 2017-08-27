@@ -1,2 +1,2 @@
 # vim-config
-Conatins current neo-vim settings
+Contains current neo-vim settings
