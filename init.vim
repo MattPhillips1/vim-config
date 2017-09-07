@@ -27,15 +27,20 @@ set magic
 
 set tabstop=4
 function! NumberToggle()
-if(&relativenumber == 1)
-set nornu
-set number
-else
-set rnu
-endif
+	if(&relativenumber == 1)
+		set nornu
+		set number
+	else
+		set rnu
+	endif
+endfunc
+
+function! Rstrip()
+	:%s/\s\+$//
 endfunc
 
 nnoremap <leader>r :call NumberToggle()<cr>
+nnoremap <leader>sr :call Rstrip()<CR>
 
 nnoremap ; :
 nnoremap Q @q
@@ -62,10 +67,11 @@ call plug#begin('~/.vim/plugged')
 	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 	Plug 'zchee/libclang-python3'
 	Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+	Plug 'c0r73x/neotags.nvim', { 'do': ':UpdateRemotePlugins' }
 call plug#end()
 let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
+	let g:airline_symbols = {}
 endif
 " unicode symbols
 " let g:airline#extensions#tabline#right_sep = ' '
@@ -92,7 +98,7 @@ let g:NERDCommentEmptyLines = 1
 let g:NERDDefaultAlign = 'left'
 let g:NERDTrailingWhitespace = 1
 
-nnoremap <Leader>/ :<space>c<space><CR>
+" nnoremap <Leader>/ :<space>c<space><CR>
 autocmd! BufWritePost * Neomake
 
 let g:deoplete#enable_at_startup = 1
@@ -100,8 +106,24 @@ let g:deoplete#enable_at_startup = 1
 let g:neomake_place_signs = 1
 let g:neomake_verbose = 1
 let g:neomake_cpp_enabled_makers = ['clang']
+let g:neomake_open_list = 2
+syntax on
+set omnifunc=syntaxcomplete#Complete
 
 colorscheme NeoSolarized
 set background=dark
 
 set termguicolors
+
+set regexpengine=1
+let g:neotags_enabled = 1
+let g:neotags#python#order = 'mfc'
+let g:neotags_ctags_args = ['--fields=+l', '--c-kinds=+p', '--c++-kinds=+p', '--sort=no', '--extra=+q']
+let g:neotags_run_ctags = 0
+highlight link pythonMethodTag Special
+highlight link pythonFunctionTag Function
+highlight link pythonClassTag Type
+
+highlight link cppTypeTag Type
+highlight link cppMemberTage Special
+highlight link cppFunctionTag Function
