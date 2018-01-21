@@ -9,15 +9,15 @@ set number
 set formatoptions+=o
 set textwidth=0
 set shiftwidth=4
-
 set modeline
 set linespace=0
 set nojoinspaces
 set splitbelow
 set splitright
 set encoding=utf-8
+set cursorline
 
-highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 
 set ignorecase
@@ -27,25 +27,37 @@ set magic
 
 set tabstop=4
 function! NumberToggle()
-	if(&relativenumber == 1)
-		set nornu
-		set number
-	else
-		set rnu
-	endif
+    if(&relativenumber == 1)
+        set nornu
+        set number
+    else
+        set rnu
+    endif
 endfunc
 
+function! IndentToggle(size)
+    set expandtab!
+    echo a:size
+    let &shiftwidth=a:size
+    let &tabstop=a:size
+endfunc
+
+
 function! Rstrip()
-	:%s/\s\+$//
+    :%s/\s\+$//
 endfunc
 
 nnoremap <leader>r :call NumberToggle()<cr>
 nnoremap <leader>sr :call Rstrip()<CR>
+nnoremap <leader>i2 :call IndentToggle(2)<CR>
+nnoremap <leader>i4 :call IndentToggle(4)<CR>
 
 nnoremap ; :
 nnoremap Q @q
-nnoremap 4 $
-nnoremap 6 ^
+
+filetype on
+au BufNewFile,BufRead *.dump set filetype=sql
+au BufNewFile,BufRead *.tem set filetype=cpp
 
 nnoremap <Leader>o :CtrlP<CR>
 nnoremap <Leader>b :CtrlPBuffer<CR>
@@ -57,21 +69,22 @@ nnoremap <Leader><up> <C-w><up>
 nnoremap <Leader><down> <C-w><down>
 nnoremap <Leader>t :NERDTreeToggle<CR>
 call plug#begin('~/.vim/plugged')
-	Plug 'ctrlpvim/ctrlp.vim'
-	Plug 'vim-airline/vim-airline'
-	Plug 'vim-airline/vim-airline-themes'
-	Plug 'tpope/vim-fugitive'
-	Plug 'iCyMind/NeoSolarized'
-	Plug 'neomake/neomake'
-	Plug 'scrooloose/nerdcommenter'
-	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-	Plug 'zchee/libclang-python3'
-	Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-	Plug 'c0r73x/neotags.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'tpope/vim-fugitive'
+    Plug 'iCyMind/NeoSolarized'
+    Plug 'neomake/neomake'
+    Plug 'scrooloose/nerdcommenter'
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'zchee/libclang-python3'
+    Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+    Plug 'c0r73x/neotags.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'https://github.com/sjl/badwolf'
 call plug#end()
 let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
-	let g:airline_symbols = {}
+    let g:airline_symbols = {}
 endif
 " unicode symbols
 " let g:airline#extensions#tabline#right_sep = ' '
@@ -94,7 +107,7 @@ let g:airline_theme = 'simple'
 let g:airline_solarized_bg = 'dark'
 
 let g:NERDSpaceDelims = 1
-let g:NERDCommentEmptyLines = 1
+let g:NERDCommentEmptyLines = 0
 let g:NERDDefaultAlign = 'left'
 let g:NERDTrailingWhitespace = 1
 
@@ -105,21 +118,24 @@ let g:deoplete#enable_at_startup = 1
 
 let g:neomake_place_signs = 1
 let g:neomake_verbose = 1
-let g:neomake_cpp_enabled_makers = ['clang']
+let g:neomake_cpp_enabled_makers = ['gcc']
 let g:neomake_open_list = 2
+
+highlight NeomakeErrorMsg ctermfg=227 ctermbg=237
+let g:neomake_warning_sign={'text': '⚠', 'texthl': 'NeomakeErrorMsg'}
 syntax on
 set omnifunc=syntaxcomplete#Complete
 
-colorscheme NeoSolarized
+colorscheme badwolf
 set background=dark
 
 set termguicolors
 
 set regexpengine=1
-let g:neotags_enabled = 1
+let g:neotags_enabled = 0
 let g:neotags#python#order = 'mfc'
 let g:neotags_ctags_args = ['--fields=+l', '--c-kinds=+p', '--c++-kinds=+p', '--sort=no', '--extra=+q']
-let g:neotags_run_ctags = 0
+let g:neotags_run_ctags = 1
 highlight link pythonMethodTag Special
 highlight link pythonFunctionTag Function
 highlight link pythonClassTag Type
