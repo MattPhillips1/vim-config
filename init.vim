@@ -16,6 +16,9 @@ set splitbelow
 set splitright
 set encoding=utf-8
 set cursorline
+set foldmethod=syntax
+let php_folding=1
+set foldopen-=block
 
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
@@ -119,6 +122,7 @@ let g:deoplete#enable_at_startup = 1
 let g:neomake_place_signs = 1
 let g:neomake_verbose = 1
 let g:neomake_cpp_enabled_makers = ['gcc']
+let g:neomake_c_enabled_makers = ['gcc']
 let g:neomake_open_list = 2
 
 highlight NeomakeErrorMsg ctermfg=227 ctermbg=237
@@ -143,3 +147,7 @@ highlight link pythonClassTag Type
 highlight link cppTypeTag Type
 highlight link cppMemberTage Special
 highlight link cppFunctionTag Function
+
+highlight link cTypeTag Type
+highlight link cMemberTage Special
+highlight link cFunctionTag Function
