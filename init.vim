@@ -71,6 +71,7 @@ nnoremap <Leader><left> <C-w><left>
 nnoremap <Leader><up> <C-w><up>
 nnoremap <Leader><down> <C-w><down>
 nnoremap <Leader>t :NERDTreeToggle<CR>
+nnoremap <Leader>g :Gstatus<CR>
 call plug#begin('~/.vim/plugged')
     Plug 'ctrlpvim/ctrlp.vim'
     Plug 'vim-airline/vim-airline'
