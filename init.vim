@@ -65,7 +65,7 @@ au BufNewFile,BufRead *.tem set filetype=cpp
 nnoremap <Leader>o :CtrlP<CR>
 nnoremap <Leader>b :CtrlPBuffer<CR>
 nnoremap <Leader>f :CtrlPMRUFiles<CR>
-nnoremap <Leader>up :ctrl-w up
+nnoremap <Leader>ih :CtrlP .<CR>
 nnoremap <Leader><right> <C-w><right>
 nnoremap <Leader><left> <C-w><left>
 nnoremap <Leader><up> <C-w><up>
@@ -124,6 +124,8 @@ let g:neomake_place_signs = 1
 let g:neomake_verbose = 1
 let g:neomake_cpp_enabled_makers = ['gcc']
 let g:neomake_c_enabled_makers = ['gcc']
+let g:neomake_python_enabled_makers = ['flake8']
+let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_open_list = 2
 
 highlight NeomakeErrorMsg ctermfg=227 ctermbg=237
