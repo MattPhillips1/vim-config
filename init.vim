@@ -50,6 +50,11 @@ function! Rstrip()
     :%s/\s\+$//
 endfunc
 
+function! LatexWrite()
+    :w!
+    :!bl
+endfunc
+
 nnoremap <leader>r :call NumberToggle()<cr>
 nnoremap <leader>sr :call Rstrip()<CR>
 nnoremap <leader>i2 :call IndentToggle(2)<CR>
@@ -72,6 +77,7 @@ nnoremap <Leader><up> <C-w><up>
 nnoremap <Leader><down> <C-w><down>
 nnoremap <Leader>t :NERDTreeToggle<CR>
 nnoremap <Leader>g :Gstatus<CR>
+command LatexWrite :call LatexWrite()
 call plug#begin('~/.vim/plugged')
     Plug 'ctrlpvim/ctrlp.vim'
     Plug 'vim-airline/vim-airline'

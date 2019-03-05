@@ -1,6 +1,4 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
-let g:netrw_dirhist_1='/home/matthew/Documents/Careers/Engineering/TwoPi/Built-Exchange/built.exchange'
-let g:netrw_dirhist_2='/home/matthew/Documents/Tutoring/COMP1531/cs1531-github'
-let g:netrw_dirhist_3='/home/matthew/Documents/Tutoring/COMP1531/cs1531-github/templates'
-let g:netrw_dirhist_4='/home/matthew/Documents/Tutoring/COMP1531/cs1531-github'
+let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_1='/home/matthew/Documents/Careers/Engineering/TwoPi/quickmark/api/Application/api'
+let g:netrw_dirhist_2='/home/matthew/.yarn'
